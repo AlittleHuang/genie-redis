@@ -2,7 +2,7 @@ package io.github.genie.redis.data.jedis;
 
 import io.github.genie.redis.data.command.RedisCommand;
 import io.github.genie.redis.data.option.ExistOption;
-import io.github.genie.redis.data.option.ExpiryOption;
+import io.github.genie.redis.data.option.KeyExpiryOption;
 import io.github.genie.redis.data.option.SetOption;
 import org.jetbrains.annotations.NotNull;
 import redis.clients.jedis.UnifiedJedis;
@@ -38,7 +38,7 @@ public class JedisCommand implements RedisCommand {
     }
 
     @Override
-    public boolean expire(@NotNull String key, @NotNull Duration duration, @NotNull ExpiryOption options) {
+    public boolean expire(@NotNull String key, @NotNull Duration duration, @NotNull KeyExpiryOption options) {
         var option = getExpiryOption(options);
         return jedis.pexpire(key, duration.toMillis(), option) != 0;
     }
@@ -49,7 +49,7 @@ public class JedisCommand implements RedisCommand {
     }
 
     @Override
-    public boolean expireAt(@NotNull String key, @NotNull Instant instant, @NotNull ExpiryOption options) {
+    public boolean expireAt(@NotNull String key, @NotNull Instant instant, @NotNull KeyExpiryOption options) {
         var option = getExpiryOption(options);
         return jedis.pexpireAt(key, instant.toEpochMilli(), option) == 1;
     }
@@ -184,7 +184,7 @@ public class JedisCommand implements RedisCommand {
         return jedis.hdel(key, field);
     }
 
-    private static redis.clients.jedis.args.ExpiryOption getExpiryOption(ExpiryOption options) {
+    private static redis.clients.jedis.args.ExpiryOption getExpiryOption(KeyExpiryOption options) {
         return switch (options) {
             case NX -> redis.clients.jedis.args.ExpiryOption.NX;
             case XX -> redis.clients.jedis.args.ExpiryOption.XX;

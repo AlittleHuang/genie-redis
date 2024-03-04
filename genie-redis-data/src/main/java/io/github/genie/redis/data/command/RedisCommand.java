@@ -1,6 +1,6 @@
 package io.github.genie.redis.data.command;
 
-import io.github.genie.redis.data.option.ExpiryOption;
+import io.github.genie.redis.data.option.KeyExpiryOption;
 import io.github.genie.redis.data.option.SetOption;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +47,7 @@ public interface RedisCommand {
      * @param duration 时间间隔
      * @param options  设置参数
      */
-    boolean expire(@NotNull String key, @NotNull Duration duration, @NotNull ExpiryOption options);
+    boolean expire(@NotNull String key, @NotNull Duration duration, @NotNull KeyExpiryOption options);
 
     /**
      * 设置过期时间
@@ -64,7 +64,7 @@ public interface RedisCommand {
      * @param instant 过期时间
      * @param options 设置参数
      */
-    boolean expireAt(@NotNull String key, @NotNull Instant instant, @NotNull ExpiryOption options);
+    boolean expireAt(@NotNull String key, @NotNull Instant instant, @NotNull KeyExpiryOption options);
 
     /**
      * 移除过期时间

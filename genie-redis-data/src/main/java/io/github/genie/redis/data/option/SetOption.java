@@ -5,9 +5,10 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Duration;
 import java.time.Instant;
 
-public class SetOption extends SetExpiryOption {
+public class SetOption {
 
     ExistOption existOption;
+    SetExpiryOption expiryOption = SetExpiryOption.of();
 
     public SetOption nx() {
         existOption = ExistOption.NX;
@@ -19,19 +20,29 @@ public class SetOption extends SetExpiryOption {
         return this;
     }
 
-    @Override
     public SetOption keepTtl() {
-        return (SetOption) super.keepTtl();
+        expiryOption.keepTtl();
+        return this;
     }
 
-    @Override
     public SetOption expireAt(@NotNull Instant instant) {
-        return (SetOption) super.expireAt(instant);
+        expiryOption.expireAt(instant);
+        return this;
     }
 
-    @Override
     public SetOption expire(@NotNull Duration duration) {
-        return (SetOption) super.expire(duration);
+        expiryOption.expire(duration);
+        return this;
+    }
+
+    public SetOption expireAtMillis(long instant) {
+        expiryOption.expireAtMillis(instant);
+        return this;
+    }
+
+    public SetOption expireMillis(long duration) {
+        expiryOption.expireMillis(duration);
+        return this;
     }
 
     public static SetOption of() {
@@ -62,4 +73,15 @@ public class SetOption extends SetExpiryOption {
         return existOption;
     }
 
+    public Instant getExpireAt() {
+        return expiryOption.getExpireAt();
+    }
+
+    public Duration getExpire() {
+        return expiryOption.getExpire();
+    }
+
+    public boolean isKeepTtl() {
+        return expiryOption.isKeepTtl();
+    }
 }

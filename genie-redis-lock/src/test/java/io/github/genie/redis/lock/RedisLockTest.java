@@ -23,7 +23,7 @@ class RedisLockTest {
     private static final AtomicInteger expected = new AtomicInteger();
     private static final String key = UUID.randomUUID().toString();
     private static final AtomicInteger id = new AtomicInteger();
-    private final LockFactory lockFactory = new LockFactory(RedisConfig.getJedisPooled());
+    private final LockFactory lockFactory = new LockFactory(RedisConfig.getRedisClient());
     private final Lock lock = lockFactory.get(key);
     // private static final Lock lock = getRlock();
 

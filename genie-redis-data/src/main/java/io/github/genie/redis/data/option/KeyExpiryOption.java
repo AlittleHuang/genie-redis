@@ -1,6 +1,6 @@
 package io.github.genie.redis.data.option;
 
-public enum ExpiryOption {
+public enum KeyExpiryOption {
     /**
      * 没有过期时间
      */

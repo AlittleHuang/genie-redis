@@ -43,8 +43,9 @@ public class DefaultRedisString extends DefaultRedisKey implements RedisString {
 
     @Override
     public boolean compareAndSet(String expected, String newValue) {
-        String script = "return ARGV[1] == redis.call('get', KEYS[1]) and redis.call('set', KEYS[1], ARGV[2]) or 0";
-        return Long.valueOf(1).equals(command.eval(script, 1, key, expected, newValue));
+        String script = "return ARGV[1] == redis.call('get', KEYS[1]) and redis.call('set', KEYS[1], ARGV[2])";
+        Object result = command.eval(script, 1, key, expected, newValue);
+        return "OK".equals(result);
     }
 
     @Override
@@ -52,14 +53,15 @@ public class DefaultRedisString extends DefaultRedisKey implements RedisString {
         if (option == null) {
             return compareAndSet(expected, newValue);
         }
+        String OK = "OK";
         if (option.isKeepTtl()) {
-            return Long.valueOf(1).equals(command.eval(SCRIPT_CAS_TTL, 1, key, expected, newValue));
+            return OK.equals(command.eval(SCRIPT_CAS_TTL, 1, key, expected, newValue));
         } else if (option.getExpire() != null) {
             String millis = Long.toString(option.getExpire().toMillis());
-            return Long.valueOf(1).equals(command.eval(SCRIPT_CAS_PX, 1, key, expected, newValue, millis));
+            return OK.equals(command.eval(SCRIPT_CAS_PX, 1, key, expected, newValue, millis));
         } else if (option.getExpireAt() != null) {
-            String millis = Long.toString(option.getExpire().toMillis());
-            return Long.valueOf(1).equals(command.eval(SCRIPT_CAS_PX_AT, 1, key, expected, newValue, millis));
+            String millis = Long.toString(option.getExpireAt().toEpochMilli());
+            return OK.equals(command.eval(SCRIPT_CAS_PX_AT, 1, key, expected, newValue, millis));
         } else {
             return compareAndSet(expected, newValue);
         }

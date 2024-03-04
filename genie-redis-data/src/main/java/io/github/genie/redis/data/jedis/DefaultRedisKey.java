@@ -3,7 +3,7 @@ package io.github.genie.redis.data.jedis;
 import io.github.genie.redis.data.api.RedisKey;
 import io.github.genie.redis.data.api.TimeToLive;
 import io.github.genie.redis.data.command.RedisCommand;
-import io.github.genie.redis.data.option.ExpiryOption;
+import io.github.genie.redis.data.option.KeyExpiryOption;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
@@ -39,7 +39,7 @@ public class DefaultRedisKey implements RedisKey {
     }
 
     @Override
-    public boolean expire(@NotNull Duration duration, @NotNull ExpiryOption options) {
+    public boolean expire(@NotNull Duration duration, @NotNull KeyExpiryOption options) {
         return command.expire(key, duration, options);
     }
 
@@ -49,7 +49,7 @@ public class DefaultRedisKey implements RedisKey {
     }
 
     @Override
-    public boolean expire(@NotNull Instant instant, @NotNull ExpiryOption options) {
+    public boolean expire(@NotNull Instant instant, @NotNull KeyExpiryOption options) {
         return command.expireAt(key, instant, options);
     }
 

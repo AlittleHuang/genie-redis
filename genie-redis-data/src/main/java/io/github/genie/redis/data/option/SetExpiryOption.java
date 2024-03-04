@@ -7,7 +7,10 @@ import java.time.Instant;
 
 public class SetExpiryOption {
 
-    public static SetExpiryOption of() {
+    protected SetExpiryOption() {
+    }
+
+    static SetExpiryOption of() {
         return new SetExpiryOption();
     }
 
@@ -23,6 +26,14 @@ public class SetExpiryOption {
         return of().expire(duration);
     }
 
+    public static SetExpiryOption ofExpireAtMillis(long instant) {
+        return of().expireAtMillis(instant);
+    }
+
+    public static SetExpiryOption ofExpireMillis(long duration) {
+        return of().expireMillis(duration);
+    }
+
     public SetExpiryOption keepTtl() {
         expireOption = KEEP_TTL;
         return this;
@@ -35,6 +46,16 @@ public class SetExpiryOption {
 
     public SetExpiryOption expire(@NotNull Duration duration) {
         expireOption = duration;
+        return this;
+    }
+
+
+    public SetExpiryOption expireAtMillis(long milliTimestamp) {
+        return expireAt(Instant.ofEpochMilli(milliTimestamp));
+    }
+
+    public SetExpiryOption expireMillis(long millis) {
+        expireOption = Duration.ofMillis(millis);
         return this;
     }
 
