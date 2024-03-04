@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>genie-redis-lock</module>
+    <module>genie-redis-data</module>
   </modules>
 
   <properties>

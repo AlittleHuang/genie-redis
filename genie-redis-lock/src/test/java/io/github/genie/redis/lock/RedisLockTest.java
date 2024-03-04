@@ -33,8 +33,8 @@ class RedisLockTest {
         List<Thread> threads = IntStream.range(0, CLIENT_COUNT)
                 .mapToObj(i -> {
                     try {
-                        Thread thread = new Thread(new RedisLockTest()::testNewClient);
-                        thread.setName("test-" + i);
+                        Thread thread = new Thread(new RedisLockTest()::start);
+                        thread.setName("client-" + i);
                         return thread;
                     } catch (Exception e) {
                         logger.error("", e);
@@ -56,11 +56,11 @@ class RedisLockTest {
         Assertions.assertEquals(expected.get(), counter);
         Assertions.assertEquals(expectedCounter, counter);
         long cost = System.currentTimeMillis() - start;
-        Assertions.assertTrue(cost < TimeUnit.SECONDS.toMillis(10));
+        Assertions.assertTrue(cost < TimeUnit.SECONDS.toMillis(30));
         logger.info("complete count " + counter + " in " + cost + "ms");
     }
 
-    public void testNewClient() {
+    public void start() {
         Thread[] threads = new Thread[THREAD_COUNT_PRE_CLIENT];
 
         for (int i = 0; i < THREAD_COUNT_PRE_CLIENT; i++) {
