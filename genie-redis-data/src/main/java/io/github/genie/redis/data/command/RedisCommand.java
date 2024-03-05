@@ -13,9 +13,6 @@ import java.util.Set;
 @SuppressWarnings("SpellCheckingInspection")
 public interface RedisCommand {
 
-    Duration TTL_NO_EXPIRE = Duration.ofMillis(-1);
-    Duration TTL_KEY_NOT_EXIST = Duration.ofMillis(-2);
-
     /**
      * 删除键
      *
@@ -131,4 +128,26 @@ public interface RedisCommand {
     Object eval(String script, int keyCount, String... args);
 
     String getRange(String key, int start, int end);
+
+    /**
+     * @return 修改后的字符串长度
+     */
+    long setRange(String key, int index, String value);
+
+
+    List<String> mget(String... keys);
+
+    boolean mset(String... keysValues);
+
+    boolean msetNx(String... keysValues);
+
+    long decrement(String key);
+
+    long decrementBy(String key, long value);
+
+    long increment(String key);
+
+    long incrementBy(String key, long value);
+
+    double incrementFlout(String key, double value);
 }

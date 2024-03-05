@@ -1,9 +1,9 @@
-package io.github.genie.redis.data.jedis;
+package io.github.genie.redis.data.impl;
 
 import io.github.genie.redis.data.RedisConfig;
 import io.github.genie.redis.data.api.RedisString;
 import io.github.genie.redis.data.api.TimeToLive;
-import io.github.genie.redis.data.impl.DefaultRedisString;
+import io.github.genie.redis.data.jedis.JedisCommand;
 import io.github.genie.redis.data.option.SetExpiryOption;
 import io.github.genie.redis.data.option.SetOption;
 import org.junit.jupiter.api.AfterEach;

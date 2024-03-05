@@ -126,6 +126,52 @@ public class JedisCommand implements RedisCommand {
     }
 
     @Override
+    public List<String> mget(String... keys) {
+        return jedis.mget(keys);
+    }
+
+    @Override
+    public boolean mset(String... keysValues) {
+        return "OK".equals(jedis.mset(keysValues));
+    }
+
+    @Override
+    public boolean msetNx(String... keysValues) {
+        return Long.valueOf(1).equals(jedis.msetnx(keysValues));
+    }
+
+    @Override
+    public long increment(String key) {
+        return jedis.incr(key);
+    }
+
+    @Override
+    public long incrementBy(String key, long value) {
+        return jedis.incrBy(key, value);
+    }
+
+    @Override
+    public long decrement(String key) {
+        return jedis.decr(key);
+
+    }
+
+    @Override
+    public long decrementBy(String key, long value) {
+        return jedis.decrBy(key, value);
+    }
+
+    @Override
+    public double incrementFlout(String key, double value) {
+        return jedis.incrByFloat(key, value);
+    }
+
+    @Override
+    public long setRange(String key, int index, String value) {
+        return jedis.setrange(key, index, value);
+    }
+
+    @Override
     public String hget(String key, String field) {
         return jedis.hget(key, field);
     }

@@ -100,12 +100,17 @@ public class DefaultRedisString extends DefaultRedisKey implements RedisString {
     }
 
     @Override
-    public long append(String value) {
+    public long append(@NotNull String value) {
         return command.append(key, value);
     }
 
     @Override
     public String getRange(int start, int end) {
         return command.getRange(key, start, end);
+    }
+
+    @Override
+    public long setRange(int index, @NotNull String value) {
+        return command.setRange(key, index, value);
     }
 }
