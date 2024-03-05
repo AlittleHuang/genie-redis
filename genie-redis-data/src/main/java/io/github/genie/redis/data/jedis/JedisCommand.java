@@ -6,6 +6,7 @@ import io.github.genie.redis.data.option.KeyExpiryOption;
 import io.github.genie.redis.data.option.SetOption;
 import org.jetbrains.annotations.NotNull;
 import redis.clients.jedis.UnifiedJedis;
+import redis.clients.jedis.args.ExpiryOption;
 import redis.clients.jedis.params.GetExParams;
 import redis.clients.jedis.params.SetParams;
 
@@ -76,7 +77,7 @@ public class JedisCommand implements RedisCommand {
 
     @Override
     public String setGet(String key, String value, SetOption option) {
-        return jedis.setGet(key, value, of(option));
+        return jedis.setGet(key, value, ofParams(option));
     }
 
     @Override
@@ -86,7 +87,7 @@ public class JedisCommand implements RedisCommand {
 
     @Override
     public String set(String key, String value, SetOption option) {
-        return jedis.set(key, value, of(option));
+        return jedis.set(key, value, ofParams(option));
     }
 
     @Override
@@ -184,16 +185,16 @@ public class JedisCommand implements RedisCommand {
         return jedis.hdel(key, field);
     }
 
-    private static redis.clients.jedis.args.ExpiryOption getExpiryOption(KeyExpiryOption options) {
+    private static ExpiryOption getExpiryOption(KeyExpiryOption options) {
         return switch (options) {
-            case NX -> redis.clients.jedis.args.ExpiryOption.NX;
-            case XX -> redis.clients.jedis.args.ExpiryOption.XX;
-            case GT -> redis.clients.jedis.args.ExpiryOption.GT;
-            case LT -> redis.clients.jedis.args.ExpiryOption.LT;
+            case NX -> ExpiryOption.NX;
+            case XX -> ExpiryOption.XX;
+            case GT -> ExpiryOption.GT;
+            case LT -> ExpiryOption.LT;
         };
     }
 
-    private SetParams of(SetOption option) {
+    private SetParams ofParams(SetOption option) {
         SetParams params = SetParams.setParams();
         if (option.isKeepTtl()) {
             params = params.keepTtl();

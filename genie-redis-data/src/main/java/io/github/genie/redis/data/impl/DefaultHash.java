@@ -1,14 +1,15 @@
-package io.github.genie.redis.data.jedis;
+package io.github.genie.redis.data.impl;
 
 import io.github.genie.redis.data.api.RedisHash;
+import io.github.genie.redis.data.jedis.JedisCommand;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-class JedisHash extends DefaultRedisKey implements RedisHash {
+class DefaultHash extends DefaultRedisKey implements RedisHash {
 
-    public JedisHash(JedisCommand jedis, String key) {
+    public DefaultHash(JedisCommand jedis, String key) {
         super(jedis, key);
     }
 

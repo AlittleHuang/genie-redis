@@ -4,10 +4,10 @@ public interface TimeToLive {
 
     long getResult();
 
-    long getExpiredAt();
+    long expiredAt();
 
-    boolean isNotExist();
+    boolean isKeyNotExist();
 
-    boolean isNoExpired();
+    boolean hasNoExpire();
 
 }

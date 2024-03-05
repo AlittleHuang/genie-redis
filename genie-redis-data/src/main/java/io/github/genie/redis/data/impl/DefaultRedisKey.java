@@ -1,4 +1,4 @@
-package io.github.genie.redis.data.jedis;
+package io.github.genie.redis.data.impl;
 
 import io.github.genie.redis.data.api.RedisKey;
 import io.github.genie.redis.data.api.TimeToLive;

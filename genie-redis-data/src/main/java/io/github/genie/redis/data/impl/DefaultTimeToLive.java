@@ -1,4 +1,4 @@
-package io.github.genie.redis.data.jedis;
+package io.github.genie.redis.data.impl;
 
 import io.github.genie.redis.data.api.TimeToLive;
 
@@ -23,17 +23,17 @@ public class DefaultTimeToLive implements TimeToLive {
     }
 
     @Override
-    public long getExpiredAt() {
+    public long expiredAt() {
         return result + createAt;
     }
 
     @Override
-    public boolean isNotExist() {
+    public boolean isKeyNotExist() {
         return result == NOT_EXIST;
     }
 
     @Override
-    public boolean isNoExpired() {
+    public boolean hasNoExpire() {
         return result == NO_EXPIRY;
     }
 

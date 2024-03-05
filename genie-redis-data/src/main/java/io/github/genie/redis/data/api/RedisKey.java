@@ -12,38 +12,44 @@ public interface RedisKey {
 
     /**
      * 删除键
+     *
      * @return 键是否存在
      */
     boolean delete();
 
     /**
      * 检查是否存在
+     *
      * @return 是否存在
      */
     boolean exists();
 
     /**
      * 设置过期时间
+     *
      * @param duration 时间间隔
      */
     boolean expire(@NotNull Duration duration);
 
     /**
      * 设置过期时间
+     *
      * @param duration 时间间隔
-     * @param options 设置参数
+     * @param options  设置参数
      */
     boolean expire(@NotNull Duration duration, @NotNull KeyExpiryOption options);
 
 
     /**
      * 设置过期时间
+     *
      * @param instant 过期时间
      */
     boolean expire(@NotNull Instant instant);
 
     /**
      * 设置过期时间
+     *
      * @param instant 过期时间
      * @param options 设置参数
      */

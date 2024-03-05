@@ -61,6 +61,14 @@ public class SetOption {
         return of().expire(duration);
     }
 
+    public static SetOption ofExpireAtMillis(long instant) {
+        return ofExpireAt(Instant.ofEpochMilli(instant));
+    }
+
+    public static SetOption ofExpireMillis(long duration) {
+        return ofExpire(Duration.ofMillis(duration));
+    }
+
     public static SetOption ofNx() {
         return of().nx();
     }
